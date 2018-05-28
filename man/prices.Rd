@@ -5,7 +5,7 @@
 prices(symbol)
 }
 \description{
-The argument symbol is of the type character that use the quantmod package to search the asset quote and return the xts database of it, with the properly name of columns for the candlesticks functions.
+The argument symbol is of the type character that use the quantmod package to search the asset quote and return the xts of it, with the properly name of columns for the candlesticks functions.
 }
 \examples{
 prices("PETR4.SA")

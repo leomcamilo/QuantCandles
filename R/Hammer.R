@@ -25,16 +25,16 @@ Hammer <- function(symbol){ #Código do Instrumento, Dias ...
   # Stock <- cbind(Stock,SombSup,SombInf,High_Low)
   #Baixa Anterior
   #Criar vetor nulo Vetor_Soma, que irá somar as linhas no final da iteração
-  Vetor_Soma_A <- vector(mode="integer", length = (length(High_Low) - days))
-  Vetor_Soma_D <- vector(mode="integer", length = (length(High_Low) - days))
+  Vector_Sum_1 <- vector(mode="integer", length = (length(High_Low) - days))
+  Vector_Sum_2 <- vector(mode="integer", length = (length(High_Low) - days))
   #Criar 1 vetor que irá se modificar na iteração pros dias anteriores e posteriores
   j <- vector(mode="integer", length = (length(High_Low) - days))
   for(k in 1:days){
     j <- High_Low[k:(length(High_Low)-days+k-1)]
-    ifelse(k==1,Vetor_Soma_A <- j,Vetor_Soma_A <- cbind(Vetor_Soma_A,j))
+    ifelse(k==1,Vector_Sum_1 <- j,Vector_Sum_1 <- cbind(Vector_Sum_1,j))
 
     l <- High_Low[(days-k+2):(length(High_Low)-k+1)]
-    ifelse(k==1,Vetor_Soma_D <- l,Vetor_Soma_D <- cbind(Vetor_Soma_D,l))
+    ifelse(k==1,Vector_Sum_2 <- l,Vector_Sum_2 <- cbind(Vector_Sum_2,l))
   }
   #Comparar o close de days, passado, com o dia atual
   y <- Stock$close
@@ -48,8 +48,8 @@ Hammer <- function(symbol){ #Código do Instrumento, Dias ...
   future2 <- c(future,vector(mode = "integer", length = days))
 
   #Criando o vetor nulo para botar depois do LBef e antes do bDep
-  LBef <- rowSums(Vetor_Soma_A)<=-2
-  HAft <- rowSums(Vetor_Soma_D)>= 2
+  LBef <- rowSums(Vector_Sum_1)<=-2
+  HAft <- rowSums(Vector_Sum_2)>= 2
   LBef <- c(vector(length = days),LBef)
   HAft <- c(HAft,vector(length = days))
   LBef <- LBef & (past1 > future1)
